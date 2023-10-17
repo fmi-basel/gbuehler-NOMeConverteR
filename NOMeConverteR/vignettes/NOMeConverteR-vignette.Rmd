@@ -1,0 +1,54 @@
+---
+title: "NOMeConverteR-vignette"
+author: " Michaela Schwaiger"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{NOMeConverteR-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+suppressPackageStartupMessages({
+library(NOMeConverteR)
+})
+```
+
+# load data in tibble fomat (ouput of fetch-NOM-e)
+
+see https://github.com/fmi-basel/gpeters-fetchNOMe for details on how to generate this format starting with bam files and a GRanges object containing your ROIs
+
+```{r}
+NomeMatrix <- readRDS(system.file("extdata", "Nome_matrix_GCHamp.rds", package = "NOMeConverteR"))
+NomeMatrix
+```
+
+#convert data to Ranged Summarized Experiment format
+
+```{r}
+# load ROIs Granges object
+ROIs_gr <- readRDS(system.file("extdata", "ROIs_gr.rds", package = "NOMeConverteR"))
+
+#generate an annotation data frame for all the samples represented in the NOME Matrix, add group info
+annots <- data.frame(samples=unique(NomeMatrix$SampleName),group=c("ADNP_KO","ADNP_KO","WT","WT"))
+rownames(annots) <- annots$samples
+
+#convert to RSE
+myNomeRSE <- convert_tibble_to_RSE(NomeMatrix,ROIs_gr,annots)
+myNomeRSE
+```
+
+#session info
+
+```{r}
+sessionInfo()
+```
+
