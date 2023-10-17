@@ -1,0 +1,25 @@
+Package: NOMeConverteR
+Title: NOMeConverteR
+Version: 0.0.0.9000
+Authors@R: 
+   person("Michaela", "Schwaiger", , "michaela.schwaiger@fmi.ch", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4522-7810"))
+Description: Conversion functions between different NOMe-seq data representation formats.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Imports: 
+    BiocGenerics,
+    GenomicRanges,
+    magrittr,
+    Matrix,
+    rlang,
+    SummarizedExperiment,
+    tidyr
+VignetteBuilder: knitr
